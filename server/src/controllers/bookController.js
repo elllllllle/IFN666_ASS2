@@ -29,7 +29,7 @@ exports.getAll = [
         .find(filter)
         .sort(sortOption)
         .lean()
-        .paginate({ ...req.paginate });
+        .paginate({ ...req.paginate, sort: sortOption });
 
         res
         .status(200)
@@ -60,7 +60,7 @@ exports.create = asyncHandler(async (req, res) => {
 });
 
 exports.update = asyncHandler(async (req, res) => {
-    const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const book = await Book.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
     if (!book) return res.status(404).json({ error: "Book not found" });
     res.status(200).json(book);
 });

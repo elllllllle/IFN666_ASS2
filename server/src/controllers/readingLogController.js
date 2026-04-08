@@ -25,7 +25,7 @@ exports.getAll = [
         .find(filter)
         .sort(sortOption)
         .lean()
-        .paginate({ ...req.paginate, populate: { path: "book" } });
+        .paginate({ ...req.paginate, sort: sortOption, populate: { path: "book" } });
 
         res
         .status(200)
@@ -60,7 +60,7 @@ exports.create = asyncHandler(async (req, res) => {
 
 exports.update = asyncHandler(async (req, res) => {
     const log = await ReadingLog.findOneAndUpdate(
-        { _id: req.params.id, user: req.user.userId }, req.body, { new: true }
+        { _id: req.params.id, user: req.user.userId }, req.body, { returnDocument: 'after' }
     );
     if (!log) return res.status(404).json({ error: "Reading log not found" });
     res.status(200).json(log);

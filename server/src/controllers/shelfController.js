@@ -25,7 +25,7 @@ exports.getAll = [
         .find(filter)
         .sort(sortOption)
         .lean()
-        .paginate({ ...req.paginate, populate: { path: "books" } });
+        .paginate({ ...req.paginate, sort: sortOption, populate: { path: "books" } });
 
         res
         .status(200)
@@ -55,7 +55,7 @@ exports.create = asyncHandler(async (req, res) => {
 
 exports.update = asyncHandler(async (req, res) => {
     const shelf = await Shelf.findOneAndUpdate(
-        { _id: req.params.id, owner: req.user.userId }, req.body, { new: true }
+        { _id: req.params.id, owner: req.user.userId }, req.body, { returnDocument: 'after' }
     );
     if (!shelf) return res.status(404).json({ error: "Shelf not found" });
     res.status(200).json(shelf);
@@ -70,11 +70,14 @@ exports.remove = asyncHandler(async (req, res) => {
 // Add book to shelf
 exports.addBook = asyncHandler(async (req, res) => {
     const { bookId } = req.body;
-    const shelf = await Shelf.findByIdAndUpdate(
+    if (!bookId) return res.status(400).json({ error: "bookId is required" });
+
+    const shelf = await Shelf.findOneAndUpdate(
         { _id: req.params.id, owner: req.user.userId },
-        { $addToSet: { book: bookId } },
-        { new: true }
+        { $addToSet: { books: bookId } },
+        { returnDocument: 'after' }
     ).populate("books");
+
     if (!shelf) return res.status(404).json({ error: "Shelf not found" });
     res.status(200).json(shelf);
 });
@@ -84,7 +87,7 @@ exports.removeBook = asyncHandler(async (req, res) => {
     const shelf = await Shelf.findOneAndUpdate(
         { _id: req.params.id, owner: req.user.userId },
         { $pull: { books: req.params.bookId } },
-        { new: true }
+        { returnDocument: 'after' }
     ).populate("books");
     if (!shelf) return res.status(404).json({ error: "Shelf not found" });
     res.status(200).json(shelf);

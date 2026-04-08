@@ -1,0 +1,552 @@
+{
+  "v": 11,
+  "name": "Reading Tracker",
+  "folders": [
+    {
+      "v": 11,
+      "name": "auth",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "register",
+          "method": "POST",
+          "endpoint": "http://localhost:3000/api/auth/register",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"username\": \"test1\",\n  \"email\": \"test1@test.com\",\n  \"password\": \"password123\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "login",
+          "method": "POST",
+          "endpoint": "http://localhost:3000/api/auth/login",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "token": "",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"username\": \"test2\",\n  \"password\": \"password123\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null
+    },
+    {
+      "v": 11,
+      "name": "books",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "GET all books",
+          "method": "GET",
+          "endpoint": "http://localhost:3000/api/books",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "token": "",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"username\": \"test2\",\n  \"password\": \"password123\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "description": null
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/books?title=gatsby",
+          "name": "GET all books (search)",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/books?sort=title",
+          "name": "GET all books (sort)",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/books?page=1&limit=2",
+          "name": "GET all books (pagination)",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/books",
+          "name": "CREATE books",
+          "params": [],
+          "headers": [],
+          "method": "POST",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"title\": \"The Martian\",\n  \"author\": \"Andy Weir\",\n  \"genre\": \"Science Fiction\",\n  \"description\": \"An astronaut is stranded alone on Mars and must use his ingenuity to survive until rescue.\",\n  \"publishedYear\": 2011,\n  \"isbn\": \"9780804139021\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/books/69d66f992a9b9ade2e339555",
+          "name": "GET book by ID",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/books/69d66f992a9b9ade2e339555",
+          "name": "UPDATE book",
+          "params": [],
+          "headers": [],
+          "method": "PUT",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"genre\": \"Updated\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/books/69d66f992a9b9ade2e339555",
+          "name": "DELETE book",
+          "params": [],
+          "headers": [],
+          "method": "DELETE",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null
+    },
+    {
+      "v": 11,
+      "name": "reading-logs",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/reading-logs",
+          "name": "CREATE reading log",
+          "params": [],
+          "headers": [],
+          "method": "POST",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"book\": \"69d66d8721c6cccf76813e63\",\n  \"status\": \"reading\",\n  \"progress\": 25\n}"
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/reading-logs",
+          "name": "GET all reading log",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/reading-logs?status=reading",
+          "name": "GET all reading log (filter)",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/reading-logs/69d6620a21c6cccf76813e56",
+          "name": "GET all reading log by ID",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/reading-logs/69d6620a21c6cccf76813e56",
+          "name": "UPDATE reading log",
+          "params": [],
+          "headers": [],
+          "method": "PUT",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"status\": \"completed\",\n  \"progress\": 100,\n  \"rating\": 5,\n  \"review\": \"An absolute masterpiece!\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/reading-logs/69d6622c21c6cccf76813e57",
+          "name": "DELETE reading log",
+          "params": [],
+          "headers": [],
+          "method": "DELETE",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null
+    },
+    {
+      "v": 11,
+      "name": "shelves",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/shelves",
+          "name": "CREATE shelf",
+          "params": [],
+          "headers": [],
+          "method": "POST",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"My Favourites\",\n  \"isPublic\": true\n}"
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/shelves",
+          "name": "GET all shelves",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557",
+          "name": "GET shelf by ID",
+          "params": [],
+          "headers": [],
+          "method": "GET",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557/books",
+          "name": "ADD book to shelf",
+          "params": [],
+          "headers": [],
+          "method": "POST",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"bookId\": \"69d66d8721c6cccf76813e63\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557",
+          "name": "UPDATE shelf",
+          "params": [],
+          "headers": [],
+          "method": "PUT",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"My All Time Favourites\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557/books/69d66d8721c6cccf76813e63",
+          "name": "REMOVE book from shelf",
+          "params": [],
+          "headers": [],
+          "method": "DELETE",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        },
+        {
+          "v": "17",
+          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557",
+          "name": "DELETE shelf",
+          "params": [],
+          "headers": [],
+          "method": "DELETE",
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<token>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {}
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null
+    }
+  ],
+  "requests": [],
+  "headers": [],
+  "auth": {
+    "authType": "none",
+    "authActive": true
+  },
+  "variables": [],
+  "description": ""
+}
