@@ -7,7 +7,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { IconBook2 } from '@tabler/icons-react'
 import { useAuth } from '../context/AuthContext'
 
-const BRAND_HOVER = '#FFFBE9'
+const BRAND_HOVER = '#F9F6EC'
 
 const linkStyle = {
   display: 'flex',
@@ -78,7 +78,7 @@ export default function Layout() {
             <Group visibleFrom="sm">
               {user ? (
                 <Group gap="xs">
-                  <Text size="sm">Hi, {user.username}</Text>
+                  <Text size="sm">👋🏼 Hi, {user.username}</Text>
                   <Button size="sm" onClick={handleLogout}>
                     Logout
                   </Button>
