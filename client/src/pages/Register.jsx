@@ -61,51 +61,65 @@ export default function Register() {
   }
 
   return (
-    <Paper withBorder shadow="sm" p="xl" mt="xl" maw={420} mx="auto" radius="md">
-      <Title order={2} mb="xs">Create an account</Title>
-      <Text c="dimmed" size="sm" mb="lg">
-        Already have an account?{' '}
-        <Anchor component={Link} to="/login">Login</Anchor>
-      </Text>
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Paper
+        withBorder
+        p="xl"
+        radius="md"
+        w="100%"
+        maw={420}
+        style={{
+          backgroundColor: '#FFFEFB',
+          borderColor: '#F6EDDD',
+        }}
+      >
+        <Title order={2} mb="xs">Create an account</Title>
+        <Text size="sm" mb="lg">
+          Already have an account?{' '}
+          <Anchor component={Link} to="/login" fw={600}>
+            Login
+          </Anchor>
+        </Text>
 
-      {error && (
-        <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
-          {error}
-        </Alert>
-      )}
+        {error && (
+          <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
+            {error}
+          </Alert>
+        )}
 
-      <form onSubmit={handleSubmit}>
-        <Stack>
-          <TextInput
-            label="Username"
-            name="username"
-            placeholder="Letters, numbers, underscores, hyphens"
-            value={form.username}
-            onChange={handleChange}
-            required
-          />
-          <TextInput
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="your@email.com"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <PasswordInput
-            label="Password"
-            name="password"
-            placeholder="At least 6 characters"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-          <Button type="submit" loading={loading} fullWidth mt="sm">
-            Create account
-          </Button>
-        </Stack>
-      </form>
-    </Paper>
+        <form onSubmit={handleSubmit}>
+          <Stack>
+            <TextInput
+              label="Username"
+              name="username"
+              placeholder="Letters, numbers, underscores, hyphens"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+            <TextInput
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="your@email.com"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <PasswordInput
+              label="Password"
+              name="password"
+              placeholder="At least 6 characters"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+            <Button type="submit" loading={loading} fullWidth mt="sm">
+              Create account
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
+    </div>
   )
 }

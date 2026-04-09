@@ -42,42 +42,50 @@ export default function Login() {
   }
 
   return (
-    <Paper withBorder shadow="sm" p="xl" mt="xl" maw={420} mx="auto" radius="md">
-      <Title order={2} mb="xs">Welcome back</Title>
-      <Text c="dimmed" size="sm" mb="lg">
-        Don't have an account?{' '}
-        <Anchor component={Link} to="/register">Register</Anchor>
-      </Text>
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Paper withBorder p="xl" radius="md" w="100%" maw={420}
+        style={{
+        backgroundColor: '#FFFEFB',
+        borderColor: '#F6EDDD',
+        }}>
+        <Title order={2} mb="xs">Welcome back !</Title>
+        <Text size="sm" mb="lg">
+          Don't have an account?{' '}
+          <Anchor component={Link} to="/register" fw={600}>
+            Register
+          </Anchor>
+        </Text>
 
-      {error && (
-        <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
-          {error}
-        </Alert>
-      )}
+        {error && (
+          <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
+            {error}
+          </Alert>
+        )}
 
-      <form onSubmit={handleSubmit}>
-        <Stack>
-          <TextInput
-            label="Username"
-            name="username"
-            placeholder="Your username"
-            value={form.username}
-            onChange={handleChange}
-            required
-          />
-          <PasswordInput
-            label="Password"
-            name="password"
-            placeholder="Your password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-          <Button type="submit" loading={loading} fullWidth mt="sm">
-            Login
-          </Button>
-        </Stack>
-      </form>
-    </Paper>
+        <form onSubmit={handleSubmit}>
+          <Stack>
+            <TextInput
+              label="Username"
+              name="username"
+              placeholder="Your username"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+            <PasswordInput
+              label="Password"
+              name="password"
+              placeholder="Your password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+            <Button type="submit" loading={loading} fullWidth mt="sm">
+              Login
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
+    </div>
   )
 }

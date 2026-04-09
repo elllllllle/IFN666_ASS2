@@ -1,0 +1,36 @@
+/* Filled button */
+.mantine-Button-root[data-variant="filled"] {
+  background-color: #454545;
+  color: white;
+  border: none;
+}
+
+.mantine-Button-root[data-variant="filled"]:hover {
+  background-color: #353431 !important;
+  color: white;
+}
+
+/* Outline button */
+.mantine-Button-root[data-variant="outline"] {
+  background-color: transparent;
+  color: #454545;
+  border: 1.5px solid #F6EDDD;
+}
+
+.mantine-Button-root[data-variant="outline"]:hover {
+  background-color: #F6EDDD !important;
+  color: #454545;
+}
+
+/* Text input and Password input */
+.mantine-TextInput-input,
+.mantine-PasswordInput-input {
+  background-color: #FFFEFB;
+  border-color: #F6EDDD;
+  color: #454545;
+}
+
+.mantine-TextInput-input:focus,
+.mantine-PasswordInput-input:focus {
+  border-color: #454545;
+}

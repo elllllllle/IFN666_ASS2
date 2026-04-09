@@ -7,45 +7,18 @@ import { useDisclosure } from '@mantine/hooks'
 import { IconBook2 } from '@tabler/icons-react'
 import { useAuth } from '../context/AuthContext'
 
-const BRAND = '#454545'
 const BRAND_HOVER = '#FFFBE9'
-const BRAND_BTN_HOVER = '#353431'
-const NAV_BG = '#FFFDF5'
 
 const linkStyle = {
   display: 'flex',
   alignItems: 'center',
   padding: '0 16px',
   height: '100%',
-  color: BRAND,
+  color: '#454545',
   textDecoration: 'none',
   fontSize: 14,
   fontWeight: 500,
   transition: 'background-color 0.15s ease',
-}
-
-const primaryBtn = {
-  backgroundColor: BRAND,
-  color: 'white',
-  border: 'none',
-}
-
-const primaryBtnHover = {
-  backgroundColor: BRAND_BTN_HOVER,
-  color: 'white',
-  border: 'none',
-}
-
-const outlineBtn = {
-  backgroundColor: 'transparent',
-  color: BRAND,
-  border: `1.5px solid ${'#F6EDDD'}`,
-}
-
-const outlineBtnHover = {
-  backgroundColor: '#F6EDDD',
-  color: BRAND,
-  border: `1.5px solid ${'#F6EDDD'}`,
 }
 
 export default function Layout() {
@@ -76,19 +49,19 @@ export default function Layout() {
 
   return (
     <AppShell header={{ height: 60 }} padding="md">
-      <AppShell.Header style={{ backgroundColor: NAV_BG, borderBottom: `1px solid #F6EDDD` }}>
+      <AppShell.Header style={{ backgroundColor: '#FFFDF5', borderBottom: '1px solid #F6EDDD' }}>
         <Container size="lg" h="100%">
           <Group h="100%" justify="space-between">
 
             {/* Logo */}
             <Group gap="xs">
-              <IconBook2 size={28} color={BRAND} />
+              <IconBook2 size={28} color="#454545" />
               <Text
                 fw={700}
                 size="lg"
                 component={Link}
                 to="/"
-                style={{ textDecoration: 'none', color: BRAND }}
+                style={{ textDecoration: 'none', color: '#454545' }}
               >
                 Reading Tracker
               </Text>
@@ -105,39 +78,17 @@ export default function Layout() {
             <Group visibleFrom="sm">
               {user ? (
                 <Group gap="xs">
-                  <Text size="sm" style={{ color: BRAND }}>
-                    Hi, {user.username}
-                  </Text>
-                  <Button
-                    size="sm"
-                    onClick={handleLogout}
-                    style={primaryBtn}
-                    onMouseEnter={e => Object.assign(e.currentTarget.style, primaryBtnHover)}
-                    onMouseLeave={e => Object.assign(e.currentTarget.style, primaryBtn)}
-                  >
+                  <Text size="sm">Hi, {user.username}</Text>
+                  <Button size="sm" onClick={handleLogout}>
                     Logout
                   </Button>
                 </Group>
               ) : (
                 <Group gap="xs">
-                  <Button
-                    size="sm"
-                    component={Link}
-                    to="/login"
-                    style={outlineBtn}
-                    onMouseEnter={e => Object.assign(e.currentTarget.style, outlineBtnHover)}
-                    onMouseLeave={e => Object.assign(e.currentTarget.style, outlineBtn)}
-                  >
+                  <Button size="sm" variant="outline" component={Link} to="/login">
                     Log in
                   </Button>
-                  <Button
-                    size="sm"
-                    component={Link}
-                    to="/register"
-                    style={primaryBtn}
-                    onMouseEnter={e => Object.assign(e.currentTarget.style, primaryBtnHover)}
-                    onMouseLeave={e => Object.assign(e.currentTarget.style, primaryBtn)}
-                  >
+                  <Button size="sm" component={Link} to="/register">
                     Sign up
                   </Button>
                 </Group>
@@ -145,7 +96,7 @@ export default function Layout() {
             </Group>
 
             {/* Mobile burger */}
-            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" color={BRAND} />
+            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" color="#454545" />
           </Group>
         </Container>
       </AppShell.Header>
@@ -158,8 +109,8 @@ export default function Layout() {
         padding="md"
         title={
           <Group gap="xs">
-            <IconBook2 size={20} color={BRAND} />
-            <Text fw={700} style={{ color: BRAND }}>Reading Tracker</Text>
+            <IconBook2 size={20} color="#454545" />
+            <Text fw={700}>Reading Tracker</Text>
           </Group>
         }
         hiddenFrom="sm"
@@ -175,34 +126,13 @@ export default function Layout() {
           <Divider my="sm" />
           <Group justify="center" grow pb="xl" px="md">
             {user ? (
-              <Button
-                onClick={handleLogout}
-                style={primaryBtn}
-                onMouseEnter={e => Object.assign(e.currentTarget.style, primaryBtnHover)}
-                onMouseLeave={e => Object.assign(e.currentTarget.style, primaryBtn)}
-              >
-                Logout
-              </Button>
+              <Button onClick={handleLogout}>Logout</Button>
             ) : (
               <>
-                <Button
-                  component={Link}
-                  to="/login"
-                  onClick={close}
-                  style={outlineBtn}
-                  onMouseEnter={e => Object.assign(e.currentTarget.style, outlineBtnHover)}
-                  onMouseLeave={e => Object.assign(e.currentTarget.style, outlineBtn)}
-                >
+                <Button variant="outline" component={Link} to="/login" onClick={close}>
                   Log in
                 </Button>
-                <Button
-                  component={Link}
-                  to="/register"
-                  onClick={close}
-                  style={primaryBtn}
-                  onMouseEnter={e => Object.assign(e.currentTarget.style, primaryBtnHover)}
-                  onMouseLeave={e => Object.assign(e.currentTarget.style, primaryBtn)}
-                >
+                <Button component={Link} to="/register" onClick={close}>
                   Sign up
                 </Button>
               </>
