@@ -10,8 +10,8 @@ exports.createLog = [
         .withMessage("Status must be want-to-read, reading, or completed"),
     body("progress")
         .optional()
-        .isInt({ min: 0, max: 100 })
-        .withMessage("Progress must be between 0 and 100"),
+        .isInt({ min: 0, max: 10000 })
+        .withMessage("Progress must be between 0 and 10000"),
     body("rating")
         .optional()
         .isInt({ min: 1, max: 5 })
@@ -29,8 +29,8 @@ exports.updateLog = [
         .withMessage("Status must be want-to-read, reading, or completed"),
     body("progress")
         .optional()
-        .isInt({ min: 0, max: 100 })
-        .withMessage("Progress must be between 0 and 100"),
+        .isInt({ min: 0, max: 10000 })
+        .withMessage("Progress must be between 0 and 10000"),
     body("rating")
         .optional()
         .isInt({ min: 1, max: 5 })

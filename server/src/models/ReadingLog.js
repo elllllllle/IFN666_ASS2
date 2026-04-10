@@ -21,7 +21,7 @@ const readingLogSchema = new mongoose.Schema(
         progress: {
             type: Number,
             min: 0,
-            max: 100,
+            max: 10000,
             default: 0
         },
         rating: {

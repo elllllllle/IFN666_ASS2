@@ -44,17 +44,24 @@ exports.get = asyncHandler(async (req, res) => {
 });
 
 exports.create = asyncHandler(async (req, res) => {
-    const { book, status, progress, rating, review, startDate, finishDate } = req.body;
-    if (!book || !status) {
-        return res.status(400).json({ error: "Book ans status are required" });
-    }
-    const log = new ReadingLog({
-        user: req.user.userId,
-        book, status, progress, rating, review, startDate, finishDate,
-    });
-    await log.save();
-    res.status(201).json(log);
-});
+  const { book, status, progress, rating, review, startDate, finishDate } = req.body
+  if (!book || !status) {
+    return res.status(400).json({ error: 'Book and status are required' })
+  }
+
+  // Check for duplicate
+  const existing = await ReadingLog.findOne({ user: req.user.userId, book })
+  if (existing) {
+    return res.status(409).json({ error: 'This book is already in your reading log' })
+  }
+
+  const log = new ReadingLog({
+    user: req.user.userId,
+    book, status, progress, rating, review, startDate, finishDate,
+  })
+  await log.save()
+  res.status(201).json(log)
+})
 
 exports.update = asyncHandler(async (req, res) => {
     const log = await ReadingLog.findOneAndUpdate(
