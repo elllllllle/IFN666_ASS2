@@ -70,8 +70,7 @@ export default function Layout() {
             {/* Desktop nav — only shown when logged in */}
             <Group h="100%" gap={0} visibleFrom="sm">
               {user && <NavLink to="/">Home</NavLink>}
-              {user && <NavLink to="/logs">My Logs</NavLink>}
-              {user && <NavLink to="/shelves">My Shelves</NavLink>}
+              {user && <NavLink to="/shelves">My Books</NavLink>}
             </Group>
 
             {/* Desktop auth buttons */}
@@ -120,8 +119,7 @@ export default function Layout() {
           <Divider my="sm" />
           <Stack px="md" gap={0}>
             {user && <NavLink to="/" onClick={close}>Books</NavLink>}
-            {user && <NavLink to="/logs" onClick={close}>My Logs</NavLink>}
-            {user && <NavLink to="/shelves" onClick={close}>My Shelves</NavLink>}
+            {user && <NavLink to="/shelves" onClick={close}>My Books</NavLink>}
           </Stack>
           <Divider my="sm" />
           <Group justify="center" grow pb="xl" px="md">
