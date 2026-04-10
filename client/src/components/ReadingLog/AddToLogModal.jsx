@@ -104,6 +104,7 @@ export default function LogModal({ opened, onClose, book, logEntry }) {
             value={form.progress}
             onChange={val => setForm({ ...form, progress: val })}
             min={0}
+            max={10000}
             styles={{ input: { backgroundColor: '#FFFEFB', borderColor: '#F6EDDD' } }}
           />
         )}
@@ -130,6 +131,8 @@ export default function LogModal({ opened, onClose, book, logEntry }) {
             value={form.review}
             onChange={e => setForm({ ...form, review: e.target.value })}
             rows={3}
+            maxLength={2000}
+            description={`${form.review.length}/2000`}
             styles={{ input: { backgroundColor: '#FFFEFB', borderColor: '#F6EDDD' } }}
           />
         )}
