@@ -34,3 +34,8 @@
 .mantine-PasswordInput-input:focus {
   border-color: #454545;
 }
+
+/* Fix tabler icon vertical alignment */
+svg.tabler-icon {
+  display: block;
+}
