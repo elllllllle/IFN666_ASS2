@@ -9,24 +9,22 @@ const { generatePaginationLinks } = require("../utils/generatePaginationLinks");
 exports.getAll = [
     query('status').optional().trim(),
     query('sort').optional().trim(),
+    query('book').optional().trim(),
     asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
         }
-
-        const { status, sort } = req.query;
+        const { status, sort, book } = req.query;
         let filter = { user: req.user.userId };
         if (status) filter.status = status;
-
+        if (book) filter.book = book;
         const sortOption = sort ? { [sort]: "asc" } : { createdAt: "desc" };
-
         const logPage = await ReadingLog
         .find(filter)
         .sort(sortOption)
         .lean()
         .paginate({ ...req.paginate, sort: sortOption, populate: { path: "book" } });
-
         res
         .status(200)
         .links(generatePaginationLinks(
@@ -36,7 +34,7 @@ exports.getAll = [
             req.paginate.limit
         ))
         .json(logPage.docs);
-    })
+  })
 ];
 
 exports.get = asyncHandler(async (req, res) => {
