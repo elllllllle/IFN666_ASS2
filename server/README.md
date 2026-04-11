@@ -66,37 +66,71 @@ The **Reading Tracker API** follows a **RESTful, decoupled architecture** with t
 
 ```
 server/
-├── API-collection.json       # Hoppscotch API collection for testing
-├── README.md                 # Project documentation
-├── package.json              # Node project file and dependencies
-├── server.js                 # Application entry point
+├── API-collection.json           # Hoppscotch API collection for testing
+├── README.md                     # Project documentation
+├── package.json                  # Node project file and dependencies
+├── server.js                     # Application entry point
 └── src/
-    ├── controllers/          # Business logic for each resource
+    ├── controllers/              # Business logic for each resource
     │   ├── authController.js
     │   ├── bookController.js
     │   ├── readingLogController.js
     │   └── shelfController.js
-    ├── middleware/            # Reusable middleware functions
-    │   ├── authenticateToken.js
-    │   ├── authValidation.js
-    │   ├── bookValidation.js
-    │   ├── readingLogValidation.js
-    │   ├── shelfValidation.js
-    │   ├── validate.js
-    │   ├── validateMongoId.js
-    │   └── validatePaginateQueryParams.js
-    ├── models/               # Mongoose schemas and models
+    ├── middleware/               # Reusable middleware functions
+    │   ├── authenticateToken.js  # JWT authentication middleware
+    │   ├── authValidation.js     # Validation rules for auth routes
+    │   ├── bookValidation.js     # Validation rules for book routes
+    │   ├── readingLogValidation.js # Validation rules for reading log routes
+    │   ├── shelfValidation.js    # Validation rules for shelf routes
+    │   ├── validate.js           # Shared validation error handler
+    │   ├── validateMongoId.js    # MongoDB ObjectId validation
+    │   └── validatePaginateQueryParams.js # Pagination query validation
+    ├── models/                   # Mongoose schemas and models
     │   ├── Book.js
     │   ├── ReadingLog.js
     │   ├── Shelf.js
     │   └── User.js
-    ├── routes/               # Express routers for each resource
-    │   ├── index.js
+    ├── routes/                   # Express routers for each resource
+    │   ├── index.js              # Root router
     │   ├── authRouter.js
     │   ├── bookRouter.js
     │   ├── readingLogRouter.js
     │   └── shelfRouter.js
-    └── utils/                # Helper functions
+    └── utils/                    # Helper functions
+        └── generatePaginationLinks.js
+``````
+server/
+├── API-collection.json                    # Hoppscotch API collection for testing
+├── README.md                              # Project documentation
+├── package.json                           # Node project file and dependencies
+├── server.js                              # Application entry point
+└── src/
+    ├── controllers/                       # Business logic for each resource
+    │   ├── authController.js
+    │   ├── bookController.js
+    │   ├── readingLogController.js
+    │   └── shelfController.js
+    ├── middleware/                        # Reusable middleware functions
+    │   ├── authenticateToken.js           # JWT authentication middleware
+    │   ├── authValidation.js              # Validation rules for auth routes
+    │   ├── bookValidation.js              # Validation rules for book routes
+    │   ├── readingLogValidation.js        # Validation rules for reading log routes
+    │   ├── shelfValidation.js             # Validation rules for shelf routes
+    │   ├── validate.js                    # Shared validation error handler
+    │   ├── validateMongoId.js             # MongoDB ObjectId validation
+    │   └── validatePaginateQueryParams.js # Pagination query validation
+    ├── models/                            # Mongoose schemas and models
+    │   ├── Book.js
+    │   ├── ReadingLog.js
+    │   ├── Shelf.js
+    │   └── User.js
+    ├── routes/                            # Express routers for each resource
+    │   ├── index.js                       # Root router
+    │   ├── authRouter.js
+    │   ├── bookRouter.js
+    │   ├── readingLogRouter.js
+    │   └── shelfRouter.js
+    └── utils/                             # Helper functions
         └── generatePaginationLinks.js
 ```
 
