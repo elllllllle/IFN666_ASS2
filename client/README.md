@@ -71,33 +71,33 @@ The **Reading Tracker Frontend** follows a **component-based architecture**, wit
 ```
 client/
 ├── public/
-│   └── favicon.svg               # Application favicon
+│   └── favicon.svg                   # Application favicon
 ├── src/
 │   ├── components/
 │   │   ├── Book/
-│   │   │   └── BookCard.jsx      # Book card for browse view
+│   │   │   └── BookCard.jsx          # Book card for browse view
 │   │   ├── ReadingLog/
-│   │   │   ├── AddToLogModal.jsx # Modal for adding/editing reading logs
-│   │   │   └── ReadingLogItem.jsx# Reading log list item
+│   │   │   ├── AddToLogModal.jsx     # Modal for adding/editing reading logs
+│   │   │   └── ReadingLogItem.jsx.   # Reading log list item
 │   │   ├── Shelf/
 │   │   │   ├── AddToShelfModal.jsx   # Modal for adding book to shelf
 │   │   │   ├── CreateShelfModal.jsx  # Modal for creating a new shelf
 │   │   │   ├── EditShelfModal.jsx    # Modal for editing shelf name
 │   │   │   └── ShelfCard.jsx         # Shelf card component
-│   │   └── ProtectedRoute.jsx    # Route guard for authenticated pages
+│   │   └── ProtectedRoute.jsx        # Route guard for authenticated pages
 │   ├── context/
-│   │   └── AuthContext.jsx       # Global authentication context
+│   │   └── AuthContext.jsx           # Global authentication context
 │   ├── pages/
-│   │   ├── BookDetail.jsx        # Single book detail view
-│   │   ├── Home.jsx              # Book browsing page
-│   │   ├── Layout.jsx            # App shell with navigation
-│   │   ├── Login.jsx             # Login page
-│   │   ├── MyBooks.jsx           # Personal library page
-│   │   ├── NoPage.jsx            # 404 not found page
-│   │   └── Register.jsx          # Registration page
-│   ├── App.jsx                   # Main application component with routing
-│   ├── main.jsx                  # Entry point for React
-│   └── theme.css                 # Global theme overrides
+│   │   ├── BookDetail.jsx            # Single book detail view
+│   │   ├── Home.jsx                  # Book browsing page
+│   │   ├── Layout.jsx                # App shell with navigation
+│   │   ├── Login.jsx                 # Login page
+│   │   ├── MyBooks.jsx               # Personal library page
+│   │   ├── NoPage.jsx                # 404 not found page
+│   │   └── Register.jsx              # Registration page
+│   ├── App.jsx                       # Main application component with routing
+│   ├── main.jsx                      # Entry point for React
+│   └── theme.css                     # Global theme overrides
 ├── .env
 ├── index.html
 ├── package.json
