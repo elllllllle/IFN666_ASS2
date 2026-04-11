@@ -8,11 +8,12 @@ import { useDisclosure } from '@mantine/hooks'
 import {
   IconAlertCircle, IconArrowLeft, IconBook2,
   IconBookmark, IconCalendar, IconUser, IconCheck,
-  IconChevronDown, IconEdit, IconTrash
+  IconChevronDown, IconEdit, IconTrash, IconBooks
 } from '@tabler/icons-react'
 import { notifications } from '@mantine/notifications'
 import { useAuth } from '../context/AuthContext'
 import LogModal from '../components/ReadingLog/AddToLogModal'
+import AddToShelfModal from '../components/Shelf/AddToShelfModal'
 
 const STATUS_LABELS = {
   'want-to-read': 'Want to Read',
@@ -28,7 +29,9 @@ export default function BookDetail() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [logEntry, setLogEntry] = useState(null)
-  const [modalOpened, { open, close }] = useDisclosure(false)
+  const [logModalOpened, { open: openLog, close: closeLog }] = useDisclosure(false)
+  const [shelfModalOpened, { open: openShelf, close: closeShelf }] = useDisclosure(false)
+  const [shelfEntry, setShelfEntry] = useState(null)
 
   useEffect(() => {
     fetchBook()
@@ -36,6 +39,10 @@ export default function BookDetail() {
 
   useEffect(() => {
     if (user && token && book) fetchLogEntry()
+  }, [user, token, book])
+
+  useEffect(() => {
+    if (user && token && book) fetchShelfEntry()
   }, [user, token, book])
 
   async function fetchBook() {
@@ -71,6 +78,25 @@ export default function BookDetail() {
     }
   }
 
+  async function fetchShelfEntry() {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/shelves`,
+      { headers: { 'Authorization': `Bearer ${token}` } }
+    )
+    const data = await res.json()
+    if (res.ok) {
+      // Find if this book exists on any shelf
+      const found = data.find(shelf =>
+        shelf.books?.some(b => b._id === id || b === id)
+      )
+      setShelfEntry(found || null)
+      }
+    } catch {
+      // silently fail
+    }
+  }
+
   async function handleRemove() {
     try {
       const res = await fetch(
@@ -96,9 +122,39 @@ export default function BookDetail() {
     }
   }
 
+  async function handleRemoveFromShelf() {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/shelves/${shelfEntry._id}/books/${id}`,
+      {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      }
+    )
+    if (!res.ok) throw new Error('Failed to remove from shelf')
+    setShelfEntry(null)
+    notifications.show({
+      title: 'Removed',
+      message: `"${book.title}" removed from "${shelfEntry.name}".`,
+      color: 'orange',
+    })
+    } catch (err) {
+      notifications.show({
+        title: 'Error',
+        message: err.message,
+        color: 'red',
+      })
+    }
+  }
+
   function handleModalClose() {
-    close()
+    closeLog()
     fetchLogEntry()
+  }
+
+  function handleShelfModalClose() {
+    closeShelf()
+    fetchShelfEntry()
   }
 
   if (loading) return (
@@ -157,14 +213,14 @@ export default function BookDetail() {
             <Title order={2}>{book.title}</Title>
 
             <Group gap="xs">
-              <Text size="md">By:</Text>
+              <Text size="sm" c="dimmed">By</Text>
               <Text size="md">{book.author}</Text>
             </Group>
 
             {book.publishedYear && (
               <Group gap="xs">
-                <Text size="md">Published:</Text>
-                <Text size="md">{book.publishedYear}</Text>
+                <Text size="sm" c="dimmed">Published</Text>
+                <Text size="sm">{book.publishedYear}</Text>
               </Group>
             )}
 
@@ -179,10 +235,7 @@ export default function BookDetail() {
             )}
 
             {book.isbn && (
-              <Group gap="xs">
-                <Text size="sm" c="dimmed">ISBN::</Text>
-                <Text size="sm" c="dimmed">{book.isbn}</Text>
-              </Group>
+              <Text size="sm" c="dimmed">ISBN: {book.isbn}</Text>
             )}
 
             {/* Action buttons */}
@@ -205,7 +258,7 @@ export default function BookDetail() {
                       <Menu.Label>Reading Log</Menu.Label>
                       <Menu.Item
                         leftSection={<IconEdit size={14} />}
-                        onClick={open}
+                        onClick={openLog}
                       >
                         Edit Log
                       </Menu.Item>
@@ -222,9 +275,29 @@ export default function BookDetail() {
                 ) : (
                   <Button
                     leftSection={<IconBookmark size={16} />}
-                    onClick={open}
+                    onClick={openLog}
                   >
                     Add to Reading Log
+                  </Button>
+                )}
+
+                {/* Add to Shelf button */}
+                {shelfEntry ? (
+                  <Button
+                    variant="outline"
+                    color="red"
+                    leftSection={<IconBooks size={16} />}
+                    onClick={handleRemoveFromShelf}
+                  >
+                    Remove from "{shelfEntry.name}"
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    leftSection={<IconBooks size={16} />}
+                    onClick={openShelf}
+                  >
+                    Add to Shelf
                   </Button>
                 )}
               </Group>
@@ -245,7 +318,7 @@ export default function BookDetail() {
             <Divider my="lg" color="#F6EDDD" />
             <Stack gap="xs">
               <Text fw={600}>Description</Text>
-              <Text size="md" style={{ lineHeight: 1.7 }}>
+              <Text size="sm" c="dimmed" style={{ lineHeight: 1.7 }}>
                 {book.description}
               </Text>
             </Stack>
@@ -255,10 +328,18 @@ export default function BookDetail() {
 
       {book && (
         <LogModal
-          opened={modalOpened}
+          opened={logModalOpened}
           onClose={handleModalClose}
           book={book}
           logEntry={logEntry}
+        />
+      )}
+
+      {book && (
+        <AddToShelfModal
+          opened={shelfModalOpened}
+          onClose={handleShelfModalClose}
+          book={book}
         />
       )}
     </Stack>
