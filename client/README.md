@@ -73,12 +73,12 @@ client/
 ├── public/
 │   └── favicon.svg                   # Application favicon
 ├── src/
-│   ├── components/
+│   ├── components/                   # Reusable UI components
 │   │   ├── Book/
 │   │   │   └── BookCard.jsx          # Book card for browse view
 │   │   ├── ReadingLog/
 │   │   │   ├── AddToLogModal.jsx     # Modal for adding/editing reading logs
-│   │   │   └── ReadingLogItem.jsx.   # Reading log list item
+│   │   │   └── ReadingLogItem.jsx    # Reading log list item
 │   │   ├── Shelf/
 │   │   │   ├── AddToShelfModal.jsx   # Modal for adding book to shelf
 │   │   │   ├── CreateShelfModal.jsx  # Modal for creating a new shelf
@@ -87,7 +87,7 @@ client/
 │   │   └── ProtectedRoute.jsx        # Route guard for authenticated pages
 │   ├── context/
 │   │   └── AuthContext.jsx           # Global authentication context
-│   ├── pages/
+│   ├── pages/                        # Main page components
 │   │   ├── BookDetail.jsx            # Single book detail view
 │   │   ├── Home.jsx                  # Book browsing page
 │   │   ├── Layout.jsx                # App shell with navigation
@@ -98,10 +98,10 @@ client/
 │   ├── App.jsx                       # Main application component with routing
 │   ├── main.jsx                      # Entry point for React
 │   └── theme.css                     # Global theme overrides
-├── .env
-├── index.html
-├── package.json
-└── vite.config.js
+├── .env                              # Environment variables (not committed to Git)
+├── index.html                        # HTML entry point
+├── package.json                      # Project dependencies and scripts
+└── vite.config.js                    # Vite configuration
 ```
 
 ## Environment Variables
