@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 import {
   Grid, TextInput, Select, Group, Title, Text,
   Pagination, Center, Loader, Alert, Button, Stack
@@ -16,46 +17,44 @@ const SORT_OPTIONS = [
 ]
 
 export default function Home() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [books, setBooks] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [search, setSearch] = useState('')
-  const [sort, setSort] = useState('title')
-  const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [inputValue, setInputValue] = useState(searchParams.get('title') || '')
+
+  const search = searchParams.get('title') || ''
+  const sort = searchParams.get('sort') || 'title'
+  const page = Number(searchParams.get('page')) || 1
 
   useEffect(() => {
+    setInputValue(search)
     fetchBooks()
-  }, [page, sort])
+  }, [searchParams])
 
-  async function fetchBooks(searchOverride) {
+  async function fetchBooks() {
     setLoading(true)
     setError(null)
-    const q = searchOverride !== undefined ? searchOverride : search
+    const q = searchParams.get('title') || ''
+    const s = searchParams.get('sort') || 'title'
+    const p = Number(searchParams.get('page')) || 1
 
     const params = new URLSearchParams()
     if (q) params.append('title', q)
-    params.append('sort', sort)
-    params.append('page', page)
+    params.append('sort', s)
+    params.append('page', p)
     params.append('limit', 12)
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/books?${params}`)
       const data = await res.json()
       if (!res.ok) throw new Error(data.message || 'Failed to fetch books')
-
       setBooks(data)
-
-      // Parse Link header to get total pages
       const linkHeader = res.headers.get('Link')
-
       if (linkHeader) {
         const lastMatch = linkHeader.match(/<[^>]*[?&]page=(\d+)[^>]*>;\s*rel="last"/)
-        if (lastMatch) {
-          setTotalPages(parseInt(lastMatch[1]))
-        } else {
-          setTotalPages(1)
-        }
+        setTotalPages(lastMatch ? parseInt(lastMatch[1]) : 1)
       } else {
         setTotalPages(1)
       }
@@ -67,21 +66,32 @@ export default function Home() {
   }
 
   function handleSearch() {
-    setPage(1)
-    fetchBooks(search)
+    const urlParams = {}
+    if (inputValue) urlParams.title = inputValue
+    if (sort !== 'title') urlParams.sort = sort
+    setSearchParams(urlParams, { replace: true })
   }
 
-  function handleSortChange(value) {
-    setSort(value)
-    setPage(1)
+  function handleSortChange(val) {
+    if (!val) return
+    const urlParams = {}
+    if (search) urlParams.title = search
+    urlParams.sort = val
+    setSearchParams(urlParams, { replace: true })
   }
 
   function handleKeyDown(e) {
     if (e.key === 'Enter') handleSearch()
   }
 
+  function handleClear() {
+    setInputValue('')
+    setSearchParams({}, { replace: true })
+  }
+
   return (
     <Stack gap="lg" py="md">
+      {/* Header */}
       <Group justify="space-between" align="flex-end">
         <div>
           <Title order={2}>Browse Books</Title>
@@ -91,12 +101,13 @@ export default function Home() {
         </div>
       </Group>
 
+      {/* Search and Sort */}
       <Group gap="sm">
         <TextInput
           placeholder="Search by title..."
           leftSection={<IconSearch size={16} />}
-          value={search}
-          onChange={e => setSearch(e.target.value)}
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           style={{ flex: 1 }}
         />
@@ -115,6 +126,7 @@ export default function Home() {
         />
       </Group>
 
+      {/* Content */}
       {loading ? (
         <Center py="xl">
           <Loader color="#454545" />
@@ -127,7 +139,7 @@ export default function Home() {
         <Center py="xl">
           <Stack align="center" gap="sm">
             <Text c="dimmed">No books found</Text>
-            <Button variant="outline" onClick={() => { setSearch(''); fetchBooks('') }}>
+            <Button variant="outline" onClick={handleClear}>
               Clear search
             </Button>
           </Stack>
@@ -142,12 +154,19 @@ export default function Home() {
             ))}
           </Grid>
 
+          {/* Pagination */}
           {totalPages > 1 && (
             <Center mt="lg">
               <Pagination
                 total={totalPages}
                 value={page}
-                onChange={setPage}
+                onChange={p => {
+                  const urlParams = {}
+                  if (search) urlParams.title = search
+                  if (sort !== 'title') urlParams.sort = sort
+                  urlParams.page = p
+                  setSearchParams(urlParams, { replace: true })
+                }}
                 color="#454545"
               />
             </Center>
