@@ -7,7 +7,7 @@ import {
 import { useDisclosure } from '@mantine/hooks'
 import {
   IconAlertCircle, IconArrowLeft, IconBook2,
-  IconBookmark, IconCalendar, IconUser, IconCheck,
+  IconBookmark, IconCalendar, IconUser,
   IconChevronDown, IconEdit, IconTrash, IconBooks
 } from '@tabler/icons-react'
 import { notifications } from '@mantine/notifications'
@@ -188,39 +188,54 @@ export default function BookDetail() {
         <Group align="flex-start" gap="xl">
           {/* Cover image or placeholder */}
           <div style={{
-            width: 160,
-            height: 220,
-            backgroundColor: '#F6EDDD',
+            width: 200,
+            height: 280,
+            backgroundColor: 'transparent',
             borderRadius: 8,
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'center',
             flexShrink: 0,
+            overflow: 'hidden',
+            padding: 8,
           }}>
-            {book.coverImage ? (
-              <img
-                src={book.coverImage}
+            {(() => {
+              const coverUrl = book.coverImage ||
+                (book.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg` : null)
+              return coverUrl ? (
+              <>
+                <img
+                src={coverUrl}
                 alt={book.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }}
-              />
+                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center', borderRadius: 4 }}
+                onError={e => {
+                    e.target.style.display = 'none'
+                    e.target.nextSibling.style.display = 'flex'
+                }}
+                />
+                <div style={{ display: 'none', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                <IconBook2 size={64} color="#454545" opacity={0.3} />
+                </div>
+              </>
             ) : (
               <IconBook2 size={64} color="#454545" opacity={0.3} />
-            )}
-          </div>
+            )
+          })()}
+        </div>
 
           {/* Book info */}
           <Stack gap="sm" style={{ flex: 1 }}>
             <Title order={2}>{book.title}</Title>
 
             <Group gap="xs">
-              <Text size="sm" c="dimmed">By</Text>
+              <Text size="md">By:</Text>
               <Text size="md">{book.author}</Text>
             </Group>
 
             {book.publishedYear && (
               <Group gap="xs">
-                <Text size="sm" c="dimmed">Published</Text>
-                <Text size="sm">{book.publishedYear}</Text>
+                <Text size="md">Published:</Text>
+                <Text size="md">{book.publishedYear}</Text>
               </Group>
             )}
 
@@ -246,7 +261,6 @@ export default function BookDetail() {
                     <Menu.Target>
                       <Button
                         variant="outline"
-                        leftSection={<IconCheck size={16} />}
                         rightSection={<IconChevronDown size={14} />}
                       >
                         {STATUS_LABELS[logEntry.status] || 'In Reading Log'}
@@ -318,7 +332,7 @@ export default function BookDetail() {
             <Divider my="lg" color="#F6EDDD" />
             <Stack gap="xs">
               <Text fw={600}>Description</Text>
-              <Text size="sm" c="dimmed" style={{ lineHeight: 1.7 }}>
+              <Text size="md" style={{ lineHeight: 1.7 }}>
                 {book.description}
               </Text>
             </Stack>

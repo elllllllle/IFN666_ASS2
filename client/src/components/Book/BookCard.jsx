@@ -1,8 +1,11 @@
-import { Card, Text, Badge, Group, Stack } from '@mantine/core'
+import { Card, Text, Badge, Stack } from '@mantine/core'
 import { Link } from 'react-router'
 import { IconBook2 } from '@tabler/icons-react'
 
 export default function BookCard({ book }) {
+  const coverUrl = book.coverImage ||
+    (book.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg` : null)
+
   return (
     <Card
       component={Link}
@@ -28,25 +31,37 @@ export default function BookCard({ book }) {
         e.currentTarget.style.transform = 'translateY(0)'
       }}
     >
-      {/* Cover image or placeholder */}
       <Card.Section
         style={{
-          backgroundColor: '#F6EDDD',
+          backgroundColor: '#FFFEFB',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          height: 160,
+          height: 240,
+          overflow: 'hidden',
+          padding: 8,
         }}
       >
-        {book.coverImage ? (
+        {coverUrl ? (
           <img
-            src={book.coverImage}
+            src={coverUrl}
             alt={book.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', borderRadius: 4, }}
+            onError={e => {
+              e.target.style.display = 'none'
+              e.target.nextSibling.style.display = 'flex'
+            }}
           />
-        ) : (
+        ) : null}
+        <div style={{
+          display: coverUrl ? 'none' : 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          height: '100%',
+        }}>
           <IconBook2 size={48} color="#454545" opacity={0.3} />
-        )}
+        </div>
       </Card.Section>
 
       <Stack gap={6} mt="md" style={{ flex: 1 }}>

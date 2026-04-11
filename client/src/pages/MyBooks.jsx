@@ -324,23 +324,44 @@ export default function MyBooks() {
                           }}
                         >
                           <div style={{
-                            height: 160,
-                            backgroundColor: '#F6EDDD',
+                            height: 200,
+                            backgroundColor: 'transparent',
                             borderRadius: '8px 8px 0 0',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             flexShrink: 0,
+                            overflow: 'hidden',
+                            padding: 8,
                           }}>
-                            {book.coverImage ? (
-                              <img
-                                src={book.coverImage}
-                                alt={book.title}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px 8px 0 0' }}
-                              />
-                            ) : (
-                              <IconBook2 size={40} color="#454545" opacity={0.3} />
-                            )}
+                            {(() => {
+                              const coverUrl = book.coverImage ||
+                                (book.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg` : null)
+                              return coverUrl ? (
+                                <>
+                                  <img
+                                    src={coverUrl}
+                                    alt={book.title}
+                                    style={{
+                                      maxWidth: '100%',
+                                      maxHeight: '100%',
+                                      objectFit: 'contain',
+                                      objectPosition: 'center',
+                                      borderRadius: 4,
+                                    }}
+                                    onError={e => {
+                                      e.target.style.display = 'none'
+                                      e.target.nextSibling.style.display = 'flex'
+                                    }}
+                                  />
+                                  <div style={{ display: 'none', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                                    <IconBook2 size={40} color="#454545" opacity={0.3} />
+                                  </div>
+                                </>
+                              ) : (
+                                <IconBook2 size={40} color="#454545" opacity={0.3} />
+                              )
+                            })()}
                           </div>
                           <Stack gap={6} p="sm" style={{ flex: 1 }}>
                             <Text

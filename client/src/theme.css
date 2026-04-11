@@ -35,7 +35,22 @@
   border-color: #454545;
 }
 
-/* Fix tabler icon vertical alignment */
-svg.tabler-icon {
-  display: block;
+/* Tab hover */
+.mantine-Tabs-tab:hover {
+  background-color: #F9F6EC !important;
+}
+
+/* Action icon hover */
+.mantine-ActionIcon-root:hover {
+  background-color: #F9F6EC !important;
+}
+
+/* Fix text vertical alignment in badges and buttons */
+.mantine-Badge-label {
+  line-height: 1;
+  padding-bottom: 0;
+}
+
+.mantine-Button-label {
+  line-height: 1;
 }

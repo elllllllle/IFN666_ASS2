@@ -3,7 +3,7 @@ import { IconBook2, IconChevronDown, IconEdit, IconTrash, IconStar } from '@tabl
 import { Link } from 'react-router'
 
 const STATUS_COLORS = {
-  'want-to-read': { backgroundColor: '#F9E0D3', color: '#7B3814' },
+  'want-to-read': { backgroundColor: '#F9E0D3', color: '#454545' },
   'reading': { backgroundColor: '#d3e4ff', color: '#1c3a6e' },
   'completed': { backgroundColor: '#d3f9d8', color: '#1a4731' },
 }
@@ -16,6 +16,8 @@ const STATUS_LABELS = {
 
 export default function ReadingLogItem({ log, onEdit, onDelete }) {
   const book = log.book
+  const coverUrl = book?.coverImage ||
+    (book?.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg` : null)
 
   return (
     <Paper
@@ -25,23 +27,40 @@ export default function ReadingLogItem({ log, onEdit, onDelete }) {
       style={{ backgroundColor: '#FFFEFB', borderColor: '#F6EDDD' }}
     >
       <Group align="flex-start" gap="md">
-        {/* Cover image or placeholder */}
+        {/* Cover image */}
         <div style={{
           width: 60,
-          height: 80,
-          backgroundColor: '#F6EDDD',
+          height: 85,
+          backgroundColor: 'transparent',
           borderRadius: 6,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexShrink: 0,
+          overflow: 'hidden',
+          padding: 4,
         }}>
-          {book?.coverImage ? (
-            <img
-              src={book.coverImage}
-              alt={book.title}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 6 }}
-            />
+          {coverUrl ? (
+            <>
+              <img
+                src={coverUrl}
+                alt={book?.title}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                  borderRadius: 3,
+                }}
+                onError={e => {
+                  e.target.style.display = 'none'
+                  e.target.nextSibling.style.display = 'flex'
+                }}
+              />
+              <div style={{ display: 'none', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                <IconBook2 size={24} color="#454545" opacity={0.3} />
+              </div>
+            </>
           ) : (
             <IconBook2 size={24} color="#454545" opacity={0.3} />
           )}
