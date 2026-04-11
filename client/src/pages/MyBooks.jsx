@@ -315,49 +315,57 @@ export default function MyBooks() {
                         <Paper
                           withBorder
                           radius="md"
-                          style={{ backgroundColor: '#FFFEFB', borderColor: '#F6EDDD' }}
+                          style={{
+                            backgroundColor: '#FFFEFB',
+                            borderColor: '#F6EDDD',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                          }}
                         >
-                          <Stack gap={0}>
-                            <div style={{
-                              height: 140,
-                              backgroundColor: '#F6EDDD',
-                              borderRadius: '8px 8px 0 0',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}>
-                              {book.coverImage ? (
-                                <img
-                                  src={book.coverImage}
-                                  alt={book.title}
-                                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px 8px 0 0' }}
-                                />
-                              ) : (
-                                <IconBook2 size={40} color="#454545" opacity={0.3} />
-                              )}
-                            </div>
-                            <Stack gap={4} p="sm">
-                              <Text
-                                fw={600}
-                                size="sm"
-                                lineClamp={2}
-                                component={Link}
-                                to={`/books/${book._id}`}
-                                style={{ textDecoration: 'none', color: '#454545' }}
-                              >
-                                {book.title}
-                              </Text>
-                              <Text size="xs" c="dimmed">{book.author}</Text>
-                              <Button
-                                size="xs"
-                                variant="subtle"
-                                color="red"
-                                leftSection={<IconTrash size={12} />}
-                                onClick={() => handleRemoveBookFromShelf(selectedShelf._id, book._id)}
-                              >
-                                Remove
-                              </Button>
-                            </Stack>
+                          <div style={{
+                            height: 160,
+                            backgroundColor: '#F6EDDD',
+                            borderRadius: '8px 8px 0 0',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}>
+                            {book.coverImage ? (
+                              <img
+                                src={book.coverImage}
+                                alt={book.title}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px 8px 0 0' }}
+                              />
+                            ) : (
+                              <IconBook2 size={40} color="#454545" opacity={0.3} />
+                            )}
+                          </div>
+                          <Stack gap={6} p="sm" style={{ flex: 1 }}>
+                            <Text
+                              fw={600}
+                              size="sm"
+                              lineClamp={2}
+                              component={Link}
+                              to={`/books/${book._id}`}
+                              style={{ textDecoration: 'none', color: '#454545' }}
+                            >
+                              {book.title}
+                            </Text>
+                            <Text size="xs" c="dimmed" lineClamp={1}>
+                              {book.author}
+                            </Text>
+                            <Button
+                              size="xs"
+                              variant="subtle"
+                              color="red"
+                              leftSection={<IconTrash size={12} />}
+                              mt="auto"
+                              onClick={() => handleRemoveBookFromShelf(selectedShelf._id, book._id)}
+                            >
+                              Remove
+                            </Button>
                           </Stack>
                         </Paper>
                       </Grid.Col>
