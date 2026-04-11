@@ -106,7 +106,8 @@ export default function Home() {
           leftSection={<IconAdjustments size={16} />}
           data={SORT_OPTIONS}
           value={sort}
-          onChange={handleSortChange}
+          onChange={val => val && handleSortChange(val)}
+          allowDeselect={false}
           w={180}
           styles={{
             input: { backgroundColor: '#FFFEFB', borderColor: '#F6EDDD' },

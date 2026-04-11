@@ -193,7 +193,7 @@ export default function BookDetail() {
             backgroundColor: 'transparent',
             borderRadius: 8,
             display: 'flex',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0,
             overflow: 'hidden',
