@@ -1,8 +1,6 @@
 # Reading Tracker Frontend (React App)
 
-GitHub Repository: https://github.com/elllllllle/IFN666_ASS2
-
-Written by Elle Koedduang for Queensland University of Technology, IFN666 Web and Mobile Application Development.
+Written by Elle for Queensland University of Technology, IFN666 Web and Mobile Application Development.
 
 ## Purpose
 
@@ -83,7 +81,7 @@ client/
 │   │   │   ├── AddToShelfModal.jsx   # Modal for adding book to shelf
 │   │   │   ├── CreateShelfModal.jsx  # Modal for creating a new shelf
 │   │   │   ├── EditShelfModal.jsx    # Modal for editing shelf name
-│   │   │   └── ShelfCard.jsx         # Shelf card component
+│   │   │   └── ShelfCard.jsx        # Shelf card component
 │   │   └── ProtectedRoute.jsx        # Route guard for authenticated pages
 │   ├── context/
 │   │   └── AuthContext.jsx           # Global authentication context
@@ -116,18 +114,83 @@ VITE_API_URL=http://localhost:3000/api
 |---|---|---|
 | VITE_API_URL | URL of the REST API backend | http://localhost:3000/api |
 
-## Running the Application
+## Running the Application (Development)
 
 ```bash
-# Development mode
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-
-# Production build
-npm run build
-
-# Preview production build
-npm run preview
 ```
+
+The app will be available at `http://localhost:5173`.
+
+## Deploying to Production (IFN666 Server)
+
+### Prerequisites
+- Node.js installed on the server
+- Caddy web server configured
+- Backend API running on the server
+
+### Step 1 — Build the production release
+
+```bash
+npm run build
+```
+
+This generates a `dist/` directory containing the static files.
+
+### Step 2 — Move the build to the web directory
+
+```bash
+# Create the directory
+sudo mkdir -p /var/www/html/assessment02
+
+# Move the built files
+mv dist/* /var/www/html/assessment02
+
+# Set correct permissions for Caddy
+cd /var/www/html
+sudo chown caddy:caddy -R .
+sudo chmod -R 755 .
+```
+
+### Step 3 — Configure Caddy
+
+Edit the Caddyfile:
+
+```bash
+sudo nano /etc/caddy/Caddyfile
+```
+
+Add the following configuration:
+
+```
+cassowary02.ifn666.com {
+    handle /assessment02/api/* {
+        uri strip_prefix /assessment02
+        reverse_proxy localhost:3000
+    }
+    handle_path /assessment02* {
+        root /var/www/html/assessment02
+        try_files {path} /index.html
+        file_server
+    }
+    log {
+        output file /var/www/html/access.log
+        format json
+    }
+}
+```
+
+### Step 4 — Restart Caddy
+
+```bash
+sudo systemctl restart caddy
+```
+
+The app will be available at `https://cassowary02.ifn666.com/assessment02`.
 
 ## How to Report Issues
 
