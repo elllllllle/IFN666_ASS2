@@ -85,7 +85,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MantineProvider theme={theme}>
       <Notifications />
-      <BrowserRouter>
+      <BrowserRouter basename="/assessment02">
         <App />
       </BrowserRouter>
     </MantineProvider>
