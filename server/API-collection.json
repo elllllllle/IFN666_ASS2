@@ -11,7 +11,7 @@
           "v": "17",
           "name": "register",
           "method": "POST",
-          "endpoint": "http://localhost:3000/api/auth/register",
+          "endpoint": "http://localhost:4000/api/auth/register",
           "params": [],
           "headers": [],
           "preRequestScript": "",
@@ -33,7 +33,7 @@
           "v": "17",
           "name": "login",
           "method": "POST",
-          "endpoint": "http://localhost:3000/api/auth/login",
+          "endpoint": "http://localhost:4000/api/auth/login",
           "params": [],
           "headers": [],
           "preRequestScript": "",
@@ -69,19 +69,19 @@
           "v": "17",
           "name": "GET all books",
           "method": "GET",
-          "endpoint": "http://localhost:3000/api/books",
+          "endpoint": "http://localhost:4000/api/books",
           "params": [],
           "headers": [],
           "preRequestScript": "",
           "testScript": "",
           "auth": {
-            "authType": "inherit",
-            "token": "",
+            "authType": "bearer",
+            "token": "<<token>>",
             "authActive": true
           },
           "body": {
             "contentType": "application/json",
-            "body": "{\n  \"username\": \"test2\",\n  \"password\": \"password123\"\n}"
+            "body": ""
           },
           "requestVariables": [],
           "responses": {},
@@ -89,7 +89,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/books?title=gatsby",
+          "endpoint": "http://localhost:4000/api/books?title=Martian",
           "name": "GET all books (search)",
           "params": [],
           "headers": [],
@@ -109,7 +109,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/books?sort=title",
+          "endpoint": "http://localhost:4000/api/books?sort=title",
           "name": "GET all books (sort)",
           "params": [],
           "headers": [],
@@ -129,7 +129,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/books?page=1&limit=2",
+          "endpoint": "http://localhost:4000/api/books?page=1&limit=2",
           "name": "GET all books (pagination)",
           "params": [],
           "headers": [],
@@ -149,7 +149,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/books",
+          "endpoint": "http://localhost:4000/api/books",
           "name": "CREATE books",
           "params": [],
           "headers": [],
@@ -170,7 +170,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/books/69d66f992a9b9ade2e339555",
+          "endpoint": "http://localhost:4000/api/books/69da57eac53f88be7138314f",
           "name": "GET book by ID",
           "params": [],
           "headers": [],
@@ -190,7 +190,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/books/69d66f992a9b9ade2e339555",
+          "endpoint": "http://localhost:4000/api/books/69da57eac53f88be7138314f",
           "name": "UPDATE book",
           "params": [],
           "headers": [],
@@ -204,14 +204,14 @@
           "testScript": "",
           "body": {
             "contentType": "application/json",
-            "body": "{\n  \"genre\": \"Updated\"\n}"
+            "body": "{\n  \"genre\": \"Thriller\"\n}"
           },
           "requestVariables": [],
           "responses": {}
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/books/69d66f992a9b9ade2e339555",
+          "endpoint": "http://localhost:4000/api/books/69d66d8721c6cccf76813e63",
           "name": "DELETE book",
           "params": [],
           "headers": [],
@@ -246,7 +246,7 @@
       "requests": [
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/reading-logs",
+          "endpoint": "http://localhost:4000/api/reading-logs",
           "name": "CREATE reading log",
           "params": [],
           "headers": [],
@@ -267,7 +267,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/reading-logs",
+          "endpoint": "http://localhost:4000/api/reading-logs",
           "name": "GET all reading log",
           "params": [],
           "headers": [],
@@ -288,7 +288,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/reading-logs?status=reading",
+          "endpoint": "http://localhost:4000/api/reading-logs?status=reading",
           "name": "GET all reading log (filter)",
           "params": [],
           "headers": [],
@@ -309,7 +309,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/reading-logs/69d6620a21c6cccf76813e56",
+          "endpoint": "http://localhost:4000/api/reading-logs/69da5c3bc53f88be71383153",
           "name": "GET all reading log by ID",
           "params": [],
           "headers": [],
@@ -330,7 +330,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/reading-logs/69d6620a21c6cccf76813e56",
+          "endpoint": "http://localhost:4000/api/reading-logs/69da5c10c53f88be71383151",
           "name": "UPDATE reading log",
           "params": [],
           "headers": [],
@@ -351,7 +351,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/reading-logs/69d6622c21c6cccf76813e57",
+          "endpoint": "http://localhost:4000/api/reading-logs/69dc57aaaaeea0379e051a9c",
           "name": "DELETE reading log",
           "params": [],
           "headers": [],
@@ -386,7 +386,7 @@
       "requests": [
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/shelves",
+          "endpoint": "http://localhost:4000/api/shelves",
           "name": "CREATE shelf",
           "params": [],
           "headers": [],
@@ -407,7 +407,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/shelves",
+          "endpoint": "http://localhost:4000/api/shelves",
           "name": "GET all shelves",
           "params": [],
           "headers": [],
@@ -428,7 +428,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557",
+          "endpoint": "http://localhost:4000/api/shelves/69dc5821aaeea0379e051a9d",
           "name": "GET shelf by ID",
           "params": [],
           "headers": [],
@@ -449,7 +449,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557/books",
+          "endpoint": "http://localhost:4000/api/shelves/69dc5821aaeea0379e051a9d/books",
           "name": "ADD book to shelf",
           "params": [],
           "headers": [],
@@ -463,14 +463,14 @@
           "testScript": "",
           "body": {
             "contentType": "application/json",
-            "body": "{\n  \"bookId\": \"69d66d8721c6cccf76813e63\"\n}"
+            "body": "{\n  \"bookId\": \"69dc571aaaeea0379e051a9b\"\n}"
           },
           "requestVariables": [],
           "responses": {}
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557",
+          "endpoint": "http://localhost:4000/api/shelves/69dc5821aaeea0379e051a9d",
           "name": "UPDATE shelf",
           "params": [],
           "headers": [],
@@ -491,7 +491,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557/books/69d66d8721c6cccf76813e63",
+          "endpoint": "http://localhost:4000/api/shelves/69dc5821aaeea0379e051a9d/books/69d7c1499f22ac8eef581dee",
           "name": "REMOVE book from shelf",
           "params": [],
           "headers": [],
@@ -512,7 +512,7 @@
         },
         {
           "v": "17",
-          "endpoint": "http://localhost:3000/api/shelves/69d672272a9b9ade2e339557",
+          "endpoint": "http://localhost:4000/api/shelves/69dc5835aaeea0379e051a9e",
           "name": "DELETE shelf",
           "params": [],
           "headers": [],
